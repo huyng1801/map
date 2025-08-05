@@ -7,7 +7,7 @@ import base64
 
 # === Cấu hình tên file GPX và HTML ===
 gpx_file = "duong_di.gpx"   # đổi tên file gpx của bạn tại đây
-output_html = "ban_do_day_du.html"
+output_html = "index.html"
 
 # === Load file GPX và namespace ===
 tree = ET.parse(gpx_file)
