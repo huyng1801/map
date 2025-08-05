@@ -1,0 +1,69 @@
+# === Chỉ giữ lại file Python và HTML ===
+
+# Loại trừ tất cả file
+*
+
+# Nhưng giữ lại các file Python
+!*.py
+
+# Giữ lại các file HTML
+!*.html
+
+# Giữ lại gitignore này
+!.gitignore
+
+# === Loại trừ các file không cần thiết ===
+
+# File GPX (dữ liệu cá nhân)
+*.gpx
+
+# File KML (dữ liệu cá nhân)  
+*.kml
+
+# Ảnh xuất ra
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+
+# File logs
+*.log
+
+# File backup
+*.bak
+*.backup
+*~
+
+# File tạm
+*.tmp
+*.temp
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === Ghi chú ===
+# File này đảm bảo chỉ push:
+# - Các file .py (code Python)
+# - Các file .html (bản đồ xuất ra)
+# - File .gitignore này
