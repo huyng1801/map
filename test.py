@@ -26,7 +26,7 @@ for wpt in root.findall('gpx:wpt', ns):
         match = re.search(r'Stop for ~(\d+)', name.text)
         if match:
             minutes = int(match.group(1))
-            if minutes >= 20:
+            if minutes >= 3:
                 lat = float(wpt.attrib['lat'])
                 lon = float(wpt.attrib['lon'])
                 ele = wpt.findtext('gpx:ele', default='0', namespaces=ns)
@@ -106,16 +106,24 @@ for wp in waypoints:
         elif 'Distance from start:' in line:
             formatted_desc += f"📍 Khoảng cách từ điểm xuất phát: {line.split(':')[1].strip()}<br>"
     
+    # Lấy ảnh từ thư mục image, tên ảnh theo số thứ tự điểm dừng (ví dụ: 0.jpg, 1.jpg,...)
+    img_path = os.path.join('image', f"{waypoints.index(wp)}.jpg")
+    img_tag = ""
+    if os.path.exists(img_path):
+        with open(img_path, "rb") as f:
+            img_base64 = base64.b64encode(f.read()).decode('utf-8')
+        img_tag = f"<img src='data:image/jpeg;base64,{img_base64}' alt='Ảnh điểm dừng' style='width:200px;height:120px;object-fit:cover;border-radius:6px;margin-bottom:8px;box-shadow:0 2px 8px #ccc;'>"
     popup_html = f"""
-    <div style="font-family: Arial, sans-serif; line-height: 1.4;">
-        <h4 style="margin: 0 0 10px 0; color: #d63031;">🛑 {wp['name'].replace('Stop for ~', 'Dừng khoảng ').replace(' min', ' phút')}</h4>
-        <div style="margin: 5px 0;">
+    <div style='font-family: Arial, sans-serif; line-height: 1.4; min-width:220px;'>
+        {img_tag}
+        <h4 style='margin: 0 0 10px 0; color: #d63031;'>🛑 {wp['name'].replace('Stop for ~', 'Dừng khoảng ').replace(' min', ' phút')}</h4>
+        <div style='margin: 5px 0;'>
             <strong>🕐 Thời gian:</strong> {time_str}
         </div>
-        <div style="margin: 5px 0;">
+        <div style='margin: 5px 0;'>
             <strong>📏 Độ cao:</strong> {wp['ele']:.1f} m
-        </div>
-        <div style="margin: 10px 0; padding: 8px; background-color: #f8f9fa; border-radius: 4px; font-size: 12px;">
+        </div
+        <div style='margin: 10px 0; padding: 8px; background-color: #f8f9fa; border-radius: 4px; font-size: 12px;'>
             {formatted_desc}
         </div>
     </div>
@@ -327,3 +335,7 @@ print("   3. Nhấn nút '📸 Xuất JPG Siêu Nét' ở góc phải")
 print("   4. Ảnh JPG sẽ tự động tải về với timestamp")
 print("   5. Độ phân giải: Theo kích thước cửa sổ trình duyệt")
 print("💡 Lưu ý: Nếu đường vẽ vẫn lệch, hãy zoom/pan bản đồ trước khi xuất")
+print("\nĐây là toàn bộ hành trình tôi đã đi quanh Việt Nam")
+print("Facebook: https://facebook.com/yourprofile")
+print("TikTok: https://tiktok.com/@yourprofile")
+print("Instagram: https://instagram.com/yourprofile")
